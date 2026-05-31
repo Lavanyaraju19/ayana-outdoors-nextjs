@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Baloo+2:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 150 30% 8%;
+    --foreground: 45 20% 90%;
+
+    --card: 150 25% 12%;
+    --card-foreground: 45 20% 90%;
+
+    --popover: 150 25% 10%;
+    --popover-foreground: 45 20% 90%;
+
+    --primary: 48 100% 50%;
+    --primary-foreground: 150 30% 8%;
+
+    --secondary: 150 20% 18%;
+    --secondary-foreground: 45 20% 90%;
+
+    --muted: 150 15% 16%;
+    --muted-foreground: 150 10% 55%;
+
+    --accent: 48 90% 45%;
+    --accent-foreground: 150 30% 8%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 150 15% 20%;
+    --input: 150 15% 20%;
+    --ring: 48 100% 50%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 150 25% 10%;
+    --sidebar-foreground: 45 20% 90%;
+    --sidebar-primary: 48 100% 50%;
+    --sidebar-primary-foreground: 150 30% 8%;
+    --sidebar-accent: 150 20% 18%;
+    --sidebar-accent-foreground: 45 20% 90%;
+    --sidebar-border: 150 15% 20%;
+    --sidebar-ring: 48 100% 50%;
+
+    /* Custom tokens */
+    --gold: 48 100% 50%;
+    --gold-muted: 48 60% 40%;
+    --dark-green: 150 30% 8%;
+    --dark-green-light: 150 25% 14%;
+    --overlay: 150 30% 5%;
+    
+    --font-display: 'Poppins', sans-serif;
+    --font-body: 'Baloo 2', cursive;
+    --font-button: 'Poppins', sans-serif;
+  }
+
+  .dark {
+    --background: 150 30% 8%;
+    --foreground: 45 20% 90%;
+    --card: 150 25% 12%;
+    --card-foreground: 45 20% 90%;
+    --popover: 150 25% 10%;
+    --popover-foreground: 45 20% 90%;
+    --primary: 48 100% 50%;
+    --primary-foreground: 150 30% 8%;
+    --secondary: 150 20% 18%;
+    --secondary-foreground: 45 20% 90%;
+    --muted: 150 15% 16%;
+    --muted-foreground: 150 10% 55%;
+    --accent: 48 90% 45%;
+    --accent-foreground: 150 30% 8%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 150 15% 20%;
+    --input: 150 15% 20%;
+    --ring: 48 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    cursor: none;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 800;
+  }
+
+  button, [role="button"], a.btn {
+    font-family: var(--font-button);
+    font-weight: 600;
+  }
+}
+
+/* Custom cursor styles */
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  border: 2px solid hsl(var(--primary));
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  mix-blend-mode: difference;
+}
+
+.custom-cursor.hover {
+  transform: scale(2);
+  background-color: hsl(var(--primary) / 0.3);
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: hsl(var(--primary));
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+}
+
+/* Touch ripple for mobile */
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 0.5; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+.touch-ripple {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: hsl(var(--primary) / 0.4);
+  pointer-events: none;
+  z-index: 99998;
+  animation: ripple 0.6s ease-out forwards;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.5);
+}

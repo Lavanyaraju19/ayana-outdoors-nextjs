@@ -1,73 +1,67 @@
-# Welcome to your Lovable project
+# Ayana Outdoors
 
-## Project info
+Marketing site + admin CMS + enquiry system for Ayana Outdoors, an outdoor learning program for
+children, families and schools based in Bengaluru.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Stack
 
-## How can I edit this code?
+- **Next.js 16** (App Router) + TypeScript + Tailwind CSS + shadcn/ui + framer-motion
+- **Supabase** — PostgreSQL (content + enquiries), Auth (admin login), Storage (admin-uploaded images)
+- **Vitest** (unit tests) + **Playwright** (end-to-end tests, including admin/enquiry flows)
 
-There are several ways of editing your application.
+## Local development
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Requires Node.js 20+, Docker (for the local Supabase stack), and the Supabase CLI (installed
+automatically via `npx` — no global install needed).
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+npm install
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Start local Postgres/Auth/Storage (first run pulls Docker images, takes a few minutes)
+npm run supabase:start
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Apply the schema and seed it with the site's current content
+npm run db:reset
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Copy the local Supabase connection details into .env.local
+cp .env.example .env.local
+
+# Create a local admin account (uses DEV_ADMIN_EMAIL / DEV_ADMIN_PASSWORD from .env.local)
+npm run db:seed:admin
+
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Visit `http://localhost:3000` for the public site and `http://localhost:3000/admin/login` for
+the admin CMS.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Scripts
 
-**Use GitHub Codespaces**
+| Command | What it does |
+|---|---|
+| `npm run dev` | Start the Next.js dev server |
+| `npm run build` / `npm run start` | Production build / production server |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | `tsc --noEmit` |
+| `npm test` | Vitest unit tests |
+| `npm run test:e2e` | Playwright (starts the dev server automatically) |
+| `npm run supabase:start` / `supabase:stop` | Local Supabase stack |
+| `npm run db:reset` | Re-apply migrations + seed data to the local database |
+| `npm run db:migration:new <name>` | Scaffold a new migration file |
+| `npm run db:seed:admin` | Create/update the local dev admin account |
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project structure
 
-## What technologies are used for this project?
+- `src/app/` — routes (App Router). `src/app/admin/` is the CMS, gated by `src/middleware.ts`.
+- `src/components/` — shared UI, ported 1:1 from the original design (visuals unchanged).
+- `src/lib/content.ts` — typed read helpers for every content table.
+- `src/app/admin/actions/` — server actions for content CRUD, auth, and media uploads.
+- `supabase/migrations/` — schema (one table per content section) + RLS policies.
+- `supabase/seed.sql` — the site's current content, so a fresh database matches production content.
+- `tests/` — Playwright specs (`admin-cms.spec.ts` for CMS/enquiry flows, `responsiveness.spec.ts`
+  and `screenshots.spec.ts` for layout across 9 device profiles).
 
-This project is built with:
+## Deployment
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for setting up a production Supabase project and deploying
+to Hostinger.

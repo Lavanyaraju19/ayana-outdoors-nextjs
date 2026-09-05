@@ -22,3 +22,31 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Test artifacts
+playwright-report/
+test-results/
+screenshots/
+
+# Internal planning docs (not part of the shipped site)
+/CONTENT_WRITING_GUIDE.md
+/DESIGN_SPECIFICATION_COMPLETE.md
+/MASTER_CODEX_CONTROLLER_IMPLEMENTATION_GUIDE.md
+/MASTER_CODEX_VOLUME_1_FOUNDATION.md
+/MASTER_WEBSITE_BLUEPRINT.md
+/PREMIUM_BRAND_STRATEGY_DOCUMENT.md
+
+# Raw/unoptimized video originals (never served, kept locally only)
+/archive/
+
+# Next.js
+/.next/
+/out/
+*.tsbuildinfo
+
+# Supabase local dev
+/supabase/.branches
+/supabase/.temp
+.env
+.env.local
+.env*.local

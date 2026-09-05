@@ -7,7 +7,7 @@ import type { HomeCardItem } from '@/lib/content';
 
 const icons = [Instagram, PlayCircle, Youtube, Newspaper, FileText];
 
-const InstagramMedia = ({ items, instagramUrl }: { items: HomeCardItem[]; instagramUrl: string | null }) => {
+const InstagramMedia = ({ items }: { items: HomeCardItem[] }) => {
   return (
     <section id="media" className="relative z-10 py-20 md:py-24">
       <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/30 to-background/50" />
@@ -34,11 +34,9 @@ const InstagramMedia = ({ items, instagramUrl }: { items: HomeCardItem[]; instag
         </div>
 
         <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-          {instagramUrl && (
-            <Button asChild variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-full px-10 py-6 cursor-none">
-              <a href={instagramUrl} target="_blank" rel="noopener noreferrer">Open Instagram</a>
-            </Button>
-          )}
+          <Button asChild variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-full px-10 py-6 cursor-none">
+            <a href="https://instagram.com/ayanaoutdoors" target="_blank" rel="noopener noreferrer">Open Instagram</a>
+          </Button>
           <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-accent rounded-full px-10 py-6 cursor-none">
             <Link href="/contact">Submit Media Enquiry</Link>
           </Button>

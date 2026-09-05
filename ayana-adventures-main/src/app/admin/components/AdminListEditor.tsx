@@ -12,6 +12,7 @@ import { Switch } from '@/components/ui/switch';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -228,6 +229,7 @@ export default function AdminListEditor({ table, fields, rows, titleField, subti
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Add new</DialogTitle>
+              <DialogDescription>Fill in the fields below, then save to publish it to the live site.</DialogDescription>
             </DialogHeader>
             <RecordForm table={table} fields={fields} onDone={() => setAddOpen(false)} />
           </DialogContent>
@@ -310,6 +312,7 @@ export default function AdminListEditor({ table, fields, rows, titleField, subti
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Edit</DialogTitle>
+            <DialogDescription>Changes save immediately to the live site.</DialogDescription>
           </DialogHeader>
           {editingRow && (
             <RecordForm table={table} fields={fields} row={editingRow} onDone={() => setEditOpen(false)} />

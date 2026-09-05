@@ -23,8 +23,8 @@ export default async function AdminHomepage() {
             { name: 'cta_primary_link', label: 'Primary button link', type: 'text', required: true },
             { name: 'cta_secondary_label', label: 'Secondary button label', type: 'text', required: true },
             { name: 'cta_secondary_link', label: 'Secondary button link', type: 'text', required: true },
-            { name: 'cta_tertiary_label', label: 'Third button label (optional)', type: 'text' },
-            { name: 'cta_tertiary_link', label: 'Third button link (optional)', type: 'text' },
+            { name: 'cta_tertiary_label', label: 'Third button label', type: 'text', required: true },
+            { name: 'cta_tertiary_link', label: 'Third button link', type: 'text', required: true },
           ]}
         />
       </div>

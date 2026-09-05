@@ -86,14 +86,12 @@ const HeroSection = (props: HeroContent) => {
                 {props.cta_secondary_label}
               </Link>
             </Button>
-            {props.cta_tertiary_label && props.cta_tertiary_link && (
-              <Button asChild variant="ghost" size="lg" className="w-full text-white hover:text-primary hover:bg-primary/10 rounded-full px-6 py-5 text-sm font-body tracking-wider cursor-none gap-2 sm:w-auto sm:px-8 sm:py-6 sm:text-base">
-                <Link href={props.cta_tertiary_link}>
-                  <ShieldCheck className="h-4 w-4 sm:h-5 sm:w-5" />
-                  {props.cta_tertiary_label}
-                </Link>
-              </Button>
-            )}
+            <Button asChild variant="ghost" size="lg" className="w-full text-white hover:text-primary hover:bg-primary/10 rounded-full px-6 py-5 text-sm font-body tracking-wider cursor-none gap-2 sm:w-auto sm:px-8 sm:py-6 sm:text-base">
+              <Link href={props.cta_tertiary_link}>
+                <ShieldCheck className="h-4 w-4 sm:h-5 sm:w-5" />
+                {props.cta_tertiary_label}
+              </Link>
+            </Button>
           </motion.div>
         </motion.div>
       </div>

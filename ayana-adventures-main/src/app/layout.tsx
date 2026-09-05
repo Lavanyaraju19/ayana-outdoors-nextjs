@@ -8,7 +8,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SchemaMarkup from "@/components/SchemaMarkup";
-import { createClient } from "@/lib/supabase/server";
+import { getSiteSettings } from "@/lib/content";
 import "./globals.css";
 
 const SITE_URL = "https://www.ayanaoutdoors.com";
@@ -39,12 +39,6 @@ export const metadata: Metadata = {
   },
 };
 
-async function getSiteSettings() {
-  const supabase = await createClient();
-  const { data } = await supabase.from("site_settings").select("*").single();
-  return data;
-}
-
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const settings = await getSiteSettings();
 
@@ -63,7 +57,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   };
 
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body>
         <SchemaMarkup addressLocality={footerSettings.addressLocality} addressRegion={footerSettings.addressRegion} />
         <TooltipProvider>

@@ -70,26 +70,18 @@ const Footer = ({ settings }: { settings: FooterSettings }) => {
           <div className="mt-6 border-t border-primary-foreground/20 pt-5">
             <h4 className="font-display text-[10px] text-primary-foreground/70 font-semibold uppercase tracking-wider mb-3">Social</h4>
             <div className="flex flex-wrap gap-4 items-center">
-              {settings.socialInstagram && (
-                <a href={settings.socialInstagram} target="_blank" rel="noopener noreferrer" title="Instagram" className="text-primary-foreground hover:scale-110 transition-transform cursor-none">
-                  <Instagram className="w-5 h-5" />
-                </a>
-              )}
-              {settings.socialYoutube && (
-                <a href={settings.socialYoutube} target="_blank" rel="noopener noreferrer" title="YouTube" className="text-primary-foreground hover:scale-110 transition-transform cursor-none">
-                  <Youtube className="w-5 h-5" />
-                </a>
-              )}
-              {settings.socialFacebook && (
-                <a href={settings.socialFacebook} target="_blank" rel="noopener noreferrer" title="Facebook" className="text-primary-foreground hover:scale-110 transition-transform cursor-none">
-                  <Facebook className="w-5 h-5" />
-                </a>
-              )}
-              {settings.socialLinkedin && (
-                <a href={settings.socialLinkedin} target="_blank" rel="noopener noreferrer" title="LinkedIn" className="text-primary-foreground hover:scale-110 transition-transform cursor-none">
-                  <Linkedin className="w-5 h-5" />
-                </a>
-              )}
+              <a href={settings.socialInstagram ?? 'https://instagram.com/ayanaoutdoors'} target="_blank" rel="noopener noreferrer" title="Instagram" className="text-primary-foreground hover:scale-110 transition-transform cursor-none">
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a href={settings.socialYoutube ?? 'https://youtube.com/@ayanaoutdoors'} target="_blank" rel="noopener noreferrer" title="YouTube" className="text-primary-foreground hover:scale-110 transition-transform cursor-none">
+                <Youtube className="w-5 h-5" />
+              </a>
+              <a href={settings.socialFacebook ?? 'https://facebook.com/ayanaoutdoors'} target="_blank" rel="noopener noreferrer" title="Facebook" className="text-primary-foreground hover:scale-110 transition-transform cursor-none">
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a href={settings.socialLinkedin ?? 'https://linkedin.com/company/ayanaoutdoors'} target="_blank" rel="noopener noreferrer" title="LinkedIn" className="text-primary-foreground hover:scale-110 transition-transform cursor-none">
+                <Linkedin className="w-5 h-5" />
+              </a>
               <a href={`https://wa.me/${settings.whatsappNumber}`} target="_blank" rel="noopener noreferrer" title="WhatsApp" className="text-primary-foreground hover:scale-110 transition-transform cursor-none">
                 <MessageCircle className="w-5 h-5" />
               </a>

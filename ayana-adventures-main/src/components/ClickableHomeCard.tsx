@@ -13,7 +13,7 @@ interface ClickableHomeCardProps {
   ariaLabel: string;
 }
 
-const MotionLink = motion(Link);
+const MotionLink = motion.create(Link);
 
 const isExternalLink = (link: string) => (
   link.startsWith('http') || link.startsWith('tel:') || link.startsWith('mailto:')

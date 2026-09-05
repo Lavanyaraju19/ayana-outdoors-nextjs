@@ -56,8 +56,8 @@ create table public.hero_content (
   cta_primary_link text not null,
   cta_secondary_label text not null,
   cta_secondary_link text not null,
-  cta_tertiary_label text,
-  cta_tertiary_link text,
+  cta_tertiary_label text not null,
+  cta_tertiary_link text not null,
   updated_at timestamptz not null default now(),
   constraint hero_content_singleton check (id)
 );

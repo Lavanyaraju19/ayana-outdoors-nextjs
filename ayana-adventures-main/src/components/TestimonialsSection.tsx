@@ -28,11 +28,9 @@ const TestimonialsSection = ({ items }: { items: HomeCardItem[] }) => {
             return (
               <ClickableHomeCard key={item.id} link={item.link} ariaLabel={`Open ${item.title}`}>
                 <Icon className="h-9 w-9 text-primary mb-5" />
-                {item.label && (
-                  <span className="inline-flex rounded-full bg-primary/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-primary mb-4">
-                    {item.label}
-                  </span>
-                )}
+                <span className="inline-flex rounded-full bg-primary/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-primary mb-4">
+                  {item.label}
+                </span>
                 <h3 className="font-display text-xl text-white mb-3">{item.title}</h3>
                 <p className="font-body text-sm md:text-base text-white/90 font-semibold pr-8">{item.description}</p>
               </ClickableHomeCard>

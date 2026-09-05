@@ -22,7 +22,6 @@ import {
   getMediaItems,
   getFaqItems,
   getContactOptions,
-  getSiteSettings,
 } from '@/lib/content';
 
 export const metadata = {
@@ -36,7 +35,7 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const [hero, impactStats, adventures, whyItems, journeyItems, testimonials, galleryItems, founderFacts, mediaItems, faqItems, contactOptions, settings] =
+  const [hero, impactStats, adventures, whyItems, journeyItems, testimonials, galleryItems, founderFacts, mediaItems, faqItems, contactOptions] =
     await Promise.all([
       getHeroContent(),
       getImpactStats(),
@@ -49,7 +48,6 @@ export default async function Home() {
       getMediaItems(),
       getFaqItems(),
       getContactOptions(),
-      getSiteSettings(),
     ]);
 
   return (
@@ -62,7 +60,7 @@ export default async function Home() {
       <TestimonialsSection items={testimonials} />
       <GallerySection items={galleryItems} />
       <MeetFounder facts={founderFacts} />
-      <InstagramMedia items={mediaItems} instagramUrl={settings?.social_instagram ?? null} />
+      <InstagramMedia items={mediaItems} />
       <FAQSection items={faqItems} />
       <ContactSection contactOptions={contactOptions} adventures={adventures} />
       <StickyEnquiryButton />

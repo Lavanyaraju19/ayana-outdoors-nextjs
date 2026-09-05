@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
 
 export interface ImpactStat {
@@ -71,8 +72,8 @@ export interface HeroContent {
   cta_primary_link: string;
   cta_secondary_label: string;
   cta_secondary_link: string;
-  cta_tertiary_label: string | null;
-  cta_tertiary_link: string | null;
+  cta_tertiary_label: string;
+  cta_tertiary_link: string;
 }
 
 export interface SiteSettings {
@@ -87,92 +88,98 @@ export interface SiteSettings {
   social_linkedin: string | null;
 }
 
-export async function getHeroContent(): Promise<HeroContent | null> {
-  const supabase = await createClient();
-  const { data } = await supabase.from("hero_content").select("*").single();
-  return data;
-}
-
-export async function getImpactStats(): Promise<ImpactStat[]> {
-  const supabase = await createClient();
-  const { data } = await supabase.from("impact_stats").select("*").order("sort_order");
-  return data ?? [];
-}
-
-export async function getAdventures(): Promise<Adventure[]> {
-  const supabase = await createClient();
-  const { data } = await supabase.from("adventures").select("*").order("sort_order");
-  return data ?? [];
-}
-
-export async function getWhyAyanaItems(): Promise<HomeCardItem[]> {
-  const supabase = await createClient();
-  const { data } = await supabase.from("why_ayana_items").select("*").order("sort_order");
-  return data ?? [];
-}
-
-export async function getJourneyWithItems(): Promise<HomeCardItem[]> {
-  const supabase = await createClient();
-  const { data } = await supabase.from("journey_with_items").select("*").order("sort_order");
-  return data ?? [];
-}
-
-export async function getTestimonials(): Promise<HomeCardItem[]> {
-  const supabase = await createClient();
-  const { data } = await supabase.from("testimonials").select("*").order("sort_order");
-  return data ?? [];
-}
-
-export async function getGalleryItems(): Promise<GalleryItem[]> {
-  const supabase = await createClient();
-  const { data } = await supabase.from("gallery_items").select("*").order("sort_order");
-  return data ?? [];
-}
-
 export interface GalleryPhoto {
   id: string;
   title: string;
   image_path: string;
 }
 
-export async function getGalleryPhotos(): Promise<GalleryPhoto[]> {
+// Every fetcher below is wrapped in React's cache() so multiple call sites within the same
+// request/render (e.g. layout.tsx and page.tsx both reading site_settings) share one Supabase
+// round trip instead of racing independent ones — the actual root cause of a dev-only transient
+// hydration mismatch found in InstagramMedia/Footer (see git history for details). Memoization is
+// scoped to a single request; it never serves stale data across requests.
+
+export const getHeroContent = cache(async (): Promise<HeroContent | null> => {
+  const supabase = await createClient();
+  const { data } = await supabase.from("hero_content").select("*").single();
+  return data;
+});
+
+export const getImpactStats = cache(async (): Promise<ImpactStat[]> => {
+  const supabase = await createClient();
+  const { data } = await supabase.from("impact_stats").select("*").order("sort_order");
+  return data ?? [];
+});
+
+export const getAdventures = cache(async (): Promise<Adventure[]> => {
+  const supabase = await createClient();
+  const { data } = await supabase.from("adventures").select("*").order("sort_order");
+  return data ?? [];
+});
+
+export const getWhyAyanaItems = cache(async (): Promise<HomeCardItem[]> => {
+  const supabase = await createClient();
+  const { data } = await supabase.from("why_ayana_items").select("*").order("sort_order");
+  return data ?? [];
+});
+
+export const getJourneyWithItems = cache(async (): Promise<HomeCardItem[]> => {
+  const supabase = await createClient();
+  const { data } = await supabase.from("journey_with_items").select("*").order("sort_order");
+  return data ?? [];
+});
+
+export const getTestimonials = cache(async (): Promise<HomeCardItem[]> => {
+  const supabase = await createClient();
+  const { data } = await supabase.from("testimonials").select("*").order("sort_order");
+  return data ?? [];
+});
+
+export const getGalleryItems = cache(async (): Promise<GalleryItem[]> => {
+  const supabase = await createClient();
+  const { data } = await supabase.from("gallery_items").select("*").order("sort_order");
+  return data ?? [];
+});
+
+export const getGalleryPhotos = cache(async (): Promise<GalleryPhoto[]> => {
   const supabase = await createClient();
   const { data } = await supabase.from("gallery_photos").select("*").order("sort_order");
   return data ?? [];
-}
+});
 
-export async function getMediaItems(): Promise<HomeCardItem[]> {
+export const getMediaItems = cache(async (): Promise<HomeCardItem[]> => {
   const supabase = await createClient();
   const { data } = await supabase.from("media_items").select("*").order("sort_order");
   return data ?? [];
-}
+});
 
-export async function getFounderFacts(): Promise<FounderFact[]> {
+export const getFounderFacts = cache(async (): Promise<FounderFact[]> => {
   const supabase = await createClient();
   const { data } = await supabase.from("founder_facts").select("*").order("sort_order");
   return data ?? [];
-}
+});
 
-export async function getFaqItems(): Promise<FaqItem[]> {
+export const getFaqItems = cache(async (): Promise<FaqItem[]> => {
   const supabase = await createClient();
   const { data } = await supabase.from("faq_items").select("*").order("sort_order");
   return data ?? [];
-}
+});
 
-export async function getAdditionalFaqQuestions(): Promise<AdditionalFaqQuestion[]> {
+export const getAdditionalFaqQuestions = cache(async (): Promise<AdditionalFaqQuestion[]> => {
   const supabase = await createClient();
   const { data } = await supabase.from("additional_faq_questions").select("*").order("sort_order");
   return data ?? [];
-}
+});
 
-export async function getContactOptions(): Promise<ContactOption[]> {
+export const getContactOptions = cache(async (): Promise<ContactOption[]> => {
   const supabase = await createClient();
   const { data } = await supabase.from("contact_options").select("*").order("sort_order");
   return data ?? [];
-}
+});
 
-export async function getSiteSettings(): Promise<SiteSettings | null> {
+export const getSiteSettings = cache(async (): Promise<SiteSettings | null> => {
   const supabase = await createClient();
   const { data } = await supabase.from("site_settings").select("*").single();
   return data;
-}
+});

@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   // Pins file tracing to this project even if a parent directory happens to have its own
   // lockfile (harmless either way, just silences a misleading warning about which root Next
   // thinks it's in).

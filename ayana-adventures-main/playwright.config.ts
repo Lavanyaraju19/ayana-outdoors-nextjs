@@ -8,7 +8,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: 'http://127.0.0.1:3000',
+    baseURL: 'http://127.0.0.1:3010',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -96,8 +96,13 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: 'npm run dev',
-    url: 'http://127.0.0.1:3000',
+    // Pinned to an uncommon port rather than the framework default: on at least one dev
+    // machine this project is used on, port 3000 is persistently held by an unrelated
+    // project, and `next dev`'s automatic fallback-port behavior isn't something Playwright's
+    // reuseExistingServer check can follow — a fixed, uncommon port avoids ever silently
+    // attaching the test suite to the wrong running server.
+    command: 'npm run dev -- -p 3010',
+    url: 'http://127.0.0.1:3010',
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
   },

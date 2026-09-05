@@ -1,11 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 
 const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const dotRef = useRef<HTMLDivElement>(null);
-  const isMobile = typeof window !== 'undefined' && 'ontouchstart' in window;
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Touch capability can only be checked in the browser — the server always renders the
+  // non-mobile (cursor-visible) markup. Checking `typeof window` during render made the
+  // client's first render diverge from that server output on real touch devices, since
+  // `window` already exists during hydration. Detecting it in an effect keeps the initial
+  // render identical on both sides; the cursor then hides itself right after mount.
+  useEffect(() => {
+    setIsMobile('ontouchstart' in window);
+  }, []);
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (cursorRef.current) {

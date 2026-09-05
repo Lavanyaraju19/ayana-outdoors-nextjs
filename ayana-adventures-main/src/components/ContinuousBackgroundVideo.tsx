@@ -14,13 +14,20 @@ interface ContinuousBackgroundVideoProps {
 const ContinuousBackgroundVideo = ({ posterSrc }: ContinuousBackgroundVideoProps) => {
   const pathname = usePathname();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [soundEnabled, setSoundEnabled] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return window.sessionStorage.getItem('ayana-hero-sound') === 'on';
-  });
+  const [soundEnabled, setSoundEnabled] = useState(false);
   const [useVideo, setUseVideo] = useState(true);
 
   const isHomepage = pathname === '/';
+
+  // Read the persisted sound preference after mount, not during the initial render — the
+  // server has no sessionStorage, so seeding this from it in a lazy useState initializer
+  // makes the client's first render diverge from the server's whenever a visitor had
+  // previously turned sound on, producing a hydration mismatch on the muted/label markup below.
+  useEffect(() => {
+    if (window.sessionStorage.getItem('ayana-hero-sound') === 'on') {
+      setSoundEnabled(true);
+    }
+  }, []);
 
   useEffect(() => {
     const checkMobilePerformance = () => {

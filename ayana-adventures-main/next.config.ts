@@ -12,6 +12,15 @@ const nextConfig: NextConfig = {
   // get blocked, which silently breaks client-side hydration (forms fall back to native
   // submission). Production is unaffected — this only gates dev-mode resources.
   allowedDevOrigins: ['127.0.0.1', 'localhost'],
+  // Admin-uploaded gallery/media images are stored in Supabase Storage and referenced by their
+  // absolute public URL (see src/app/admin/actions/media.ts) — next/image refuses to optimize an
+  // external host unless it's explicitly allowed here.
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: '**.supabase.co', pathname: '/storage/v1/object/public/**' },
+      { protocol: 'http', hostname: '127.0.0.1', pathname: '/storage/v1/object/public/**' },
+    ],
+  },
 };
 
 export default nextConfig;
